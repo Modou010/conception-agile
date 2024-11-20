@@ -1,0 +1,123 @@
+/* Corps de la page */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f2f5; /* Couleur de fond plus douce */
+  color: #333;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Titres */
+h1,
+h2 {
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+
+/* Zone de jeu */
+#game-area {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px; /* Limite la largeur du contenu */
+  margin: auto;
+  padding: 20px;
+  background-color: #fff; /* Fond blanc pour une meilleure lisibilité */
+  border-radius: 12px; /* Coins arrondis du conteneur */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+/* Conteneur des cartes */
+#cards {
+  display: flex; /* Disposition horizontale des cartes */
+  flex-wrap: wrap; /* Permet aux cartes de se réorganiser si l'écran est trop petit */
+  justify-content: center; /* Centrer les cartes horizontalement */
+  gap: 20px; /* Espacement entre les cartes */
+  margin-top: 20px;
+  padding: 10px 0; /* Espacement vertical pour ne pas coller aux bords */
+}
+
+/* Carte individuelle */
+.card {
+  width: 130px; /* Largeur des cartes */
+  height: 190px; /* Hauteur des cartes */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out; /* Animation fluide */
+  border-radius: 12px; /* Coins arrondis pour les cartes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  overflow: hidden;
+  background-color: #fff; /* Fond blanc pour les cartes */
+  border: 2px solid #ddd; /* Bordure discrète */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Agrandir légèrement au survol */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre plus marquée au survol */
+}
+
+/* Image dans les cartes */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Adapter l'image à la taille de la carte */
+  border-radius: 8px; /* Coins arrondis pour l'image */
+}
+
+/* Affichage de la carte sélectionnée */
+#selected-card {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+}
+
+#selected-card p {
+  font-size: 1.5rem;
+  color: #007bff; /* Couleur bleue pour le texte de la carte sélectionnée */
+  margin-top: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Effet visuel sur le texte des titres */
+h1,
+h2 {
+  color: #007bff; /* Couleur bleu vif pour les titres */
+  text-shadow: 2px 2px 5px rgba(0, 123, 255, 0.3); /* Effet d'ombre douce sur le texte */
+}
+
+/* Amélioration de la lisibilité des cartes */
+.card {
+  position: relative;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajout d'un effet de bouton au texte */
+#start-game {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+#start-game:hover {
+  background-color: #0056b3;
+}

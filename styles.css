@@ -1,0 +1,158 @@
+/* Reset de certains styles par défaut */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+}
+
+main {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+#menu {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #4caf50;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+input[type="number"]:focus,
+select:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+#player-names {
+  margin-bottom: 20px;
+}
+
+button,
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover,
+.button:hover {
+  background-color: #45a049;
+}
+
+a.button {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
+a.button:active {
+  background-color: #388e3c;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #menu {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  label,
+  input,
+  select {
+    font-size: 0.9rem;
+  }
+}
+/* Styles des noms des joueurs */
+#player-names {
+  margin-top: 20px;
+}
+
+#player-names label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+#player-names input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+#player-names input[type="text"]:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+#player-names .error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#player-names .player-input-container {
+  margin-bottom: 10px;
+}

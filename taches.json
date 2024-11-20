@@ -1,0 +1,32 @@
+[
+  {
+    "numero": 1,
+    "en_tant_que": "Utilisateur",
+    "je_souhaite": "Voir les identités des collaborateurs sur une page d’accueil",
+    "afin_de": "Connaitre les effectifs de la société"
+  },
+  {
+    "numero": 2,
+    "en_tant_que": "Administrateur",
+    "je_souhaite": "Avoir une interface pour pouvoir créer un nouveau profil",
+    "afin_de": "Mettre à jour le trombinoscope"
+  },
+  {
+    "numero": 3,
+    "en_tant_que": "Administrateur",
+    "je_souhaite": "Pouvoir insérer une photo de la personne dans son profil",
+    "afin_de": "Le rendre reconnaissable de tous"
+  },
+  {
+    "numero": 4,
+    "en_tant_que": "Administrateur",
+    "je_souhaite": "Pouvoir modifier un profil existant",
+    "afin_de": "Mettre à jour le trombinoscope"
+  },
+  {
+    "numero": 5,
+    "en_tant_que": "Utilisateur",
+    "je_souhaite": "Pouvoir consulter le profil détaillé d’une identité sélectionnée",
+    "afin_de": "Pouvoir contacter ou reconnaitre une personne"
+  }
+]
