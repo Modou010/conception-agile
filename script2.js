@@ -1,87 +1,39 @@
-/**
- * Gérer les événements DOM pour initialiser le jeu.
- * @constructeur
- */
 document.addEventListener("DOMContentLoaded", () => {
-  const playersInput = document.getElementById("players");
-  const playerNamesContainer = document.getElementById("player-names");
-  const startGameButton = document.getElementById("start-game");
+  const cardsContainer = document.getElementById("cards");
+  const cardNumberDisplay = document.getElementById("card-number");
 
-  /**
-   * Met à jour le formulaire pour les noms des joueurs en fonction du nombre de joueurs saisi.
-   * @param {Event} event - L'événement de saisie utilisateur.
-   */
-  playersInput.addEventListener("input", () => {
-    const numberOfPlayers = parseInt(playersInput.value, 10);
-    playerNamesContainer.innerHTML = ""; // Réinitialiser le conteneur
+  // Liste des cartes avec leurs noms de fichiers spécifiques
+  const cardFiles = [
+    "cartes_0.svg",
+    "cartes_1.svg",
+    "cartes_2.svg",
+    "cartes_3.svg",
+    "cartes_5.svg",
+    "cartes_8.svg",
+    "cartes_13.svg",
+    "cartes_20.svg",
+    "cartes_40.svg",
+    "cartes_100.svg",
+    "cartes_cafe.svg",
+    "cartes_interro.svg",
+  ];
 
-    // Vérification du nombre minimal de joueurs
-    if (numberOfPlayers < 2) {
-      const errorMessage = document.createElement("p");
-      errorMessage.textContent = "La partie doit avoir au moins deux joueurs.";
-      errorMessage.style.color = "red";
-      errorMessage.style.fontWeight = "bold";
+  // Charger les cartes à partir de la liste
+  cardFiles.forEach((cardFile) => {
+    const cardImage = document.createElement("img");
+    cardImage.src = `cartes/${cardFile}`;
+    cardImage.alt = `Carte ${cardFile}`;
+    cardImage.classList.add("card");
 
-      playerNamesContainer.appendChild(errorMessage);
-      return;
-    }
+    // Extraire le numéro de la carte à partir du nom de fichier
+    const cardNumber = cardFile.match(/\d+|cafe|interro/)[0];
 
-    // Génération des champs de saisie des noms des joueurs
-    for (let i = 1; i <= numberOfPlayers; i++) {
-      const playerLabel = document.createElement("label");
-      playerLabel.textContent = `Nom du joueur ${i} :`;
-      playerLabel.htmlFor = `player-${i}`;
-
-      const playerInput = document.createElement("input");
-      playerInput.type = "text";
-      playerInput.id = `player-${i}`;
-      playerInput.name = `player-${i}`;
-      playerInput.required = true;
-
-      // Ajouter au conteneur
-      playerNamesContainer.appendChild(playerLabel);
-      playerNamesContainer.appendChild(playerInput);
-    }
-  });
-
-  /**
-   * Vérifie les noms des joueurs et génère un fichier JSON téléchargeable.
-   * @param {Event} event - L'événement de clic du bouton démarrer.
-   */
-  startGameButton.addEventListener("click", (event) => {
-    const playerInputs = playerNamesContainer.querySelectorAll("input");
-    const playerNames = [];
-
-    // Récupérer les noms des joueurs
-    playerInputs.forEach((input) => {
-      if (input.value.trim() !== "") {
-        playerNames.push(input.value.trim());
-      }
+    // Ajouter un gestionnaire d'événement pour la sélection de la carte
+    cardImage.addEventListener("click", () => {
+      cardNumberDisplay.textContent = `Carte ${cardNumber} sélectionnée`;
     });
 
-    // Vérifier si tous les champs sont remplis
-    if (playerNames.length < parseInt(playersInput.value, 10)) {
-      alert("Veuillez remplir tous les noms des joueurs.");
-      event.preventDefault();
-      return;
-    }
-
-    // Générer un fichier JSON
-    const playersData = JSON.stringify({ players: playerNames }, null, 2);
-
-    // Créer un fichier JSON téléchargeable
-    const blob = new Blob([playersData], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    // Créer un lien de téléchargement
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "players.json"; // Nom du fichier
-    document.body.appendChild(a);
-    a.click();
-
-    // Nettoyer l'URL temporaire et l'élément
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Ajouter l'image de la carte au conteneur
+    cardsContainer.appendChild(cardImage);
   });
 });
