@@ -19,17 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // Charger les cartes à partir de la liste
-  cardFiles.forEach((cardFile, index) => {
+  cardFiles.forEach((cardFile) => {
     const cardImage = document.createElement("img");
-    cardImage.src = `cartes/${cardFile}`; // Utilise le chemin pour chaque fichier de carte
-    cardImage.alt = `Carte ${index}`;
+    cardImage.src = `cartes/${cardFile}`;
+    cardImage.alt = `Carte ${cardFile}`;
     cardImage.classList.add("card");
-    cardImage.dataset.cardNumber = index; // L'index peut être utilisé pour l'identifier, ou tu peux utiliser un autre attribut
+
+    // Extraire le numéro de la carte à partir du nom de fichier
+    const cardNumber = cardFile.match(/\d+|cafe|interro/)[0];
 
     // Ajouter un gestionnaire d'événement pour la sélection de la carte
     cardImage.addEventListener("click", () => {
-      const selectedCardNumber = cardImage.dataset.cardNumber;
-      cardNumberDisplay.textContent = `Carte ${selectedCardNumber} sélectionnée`;
+      cardNumberDisplay.textContent = `Carte ${cardNumber} sélectionnée`;
     });
 
     // Ajouter l'image de la carte au conteneur
