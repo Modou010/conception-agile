@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTaskIndex = 0;
   let currentPlayerIndex = 0;
   let chosenCards = [];
+  const results = []; // Tableau pour stocker les résultats des votes
 
   function afficherTache() {
     taskContainer.textContent = `Tâche à voter : ${taches[currentTaskIndex]}`;
@@ -99,14 +100,36 @@ document.addEventListener("DOMContentLoaded", () => {
       result = trouverMajorite(chosenCards, false);
     }
 
-    afficherPopup(`Résultat de la tâche "${taches[currentTaskIndex]}"`, result);
-    chosenCards = [];
-    currentTaskIndex++;
+    // Ajouter le résultat au tableau des résultats
+    results.push({
+      task: taches[currentTaskIndex],
+      mode: modeDeJeu,
+      result: result,
+      votes: [...chosenCards],
+    });
 
-    if (currentTaskIndex < taches.length) {
-      afficherTache();
+    // Afficher un popup pour chaque tâche
+    afficherPopup(
+      `Résultat de la tâche "${taches[currentTaskIndex]}"`,
+      `Mode: ${modeDeJeu}\nRésultat: ${result}\nVotes: ${chosenCards.join(
+        ", "
+      )}`
+    );
+
+    if (currentTaskIndex >= taches.length - 1) {
+      let message =
+        "Toutes les tâches ont été votées ! Voici les résultats :\n";
+      results.forEach((res, index) => {
+        message += `Tâche ${index + 1}: ${res.task}\nMode: ${
+          res.mode
+        }\nRésultat: ${res.result}\nVotes: ${res.votes.join(", ")}\n\n`;
+      });
+
+      afficherPopup("Fin du jeu", message);
+      exporterResultats(); // Appeler l'export des résultats
     } else {
-      afficherPopup("Fin du jeu", "Toutes les tâches ont été votées !");
+      currentTaskIndex++;
+      afficherTache();
     }
   }
 
@@ -149,6 +172,20 @@ function afficherPopup(titre, message) {
   popup.appendChild(popupMessage);
   popup.appendChild(closeButton);
   document.body.appendChild(popup);
+}
+
+// Fonction pour exporter les résultats
+function exporterResultats() {
+  const dataStr = JSON.stringify(results, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "resultats_votes.json"; // Nom du fichier à télécharger
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 // Fonction pour trouver la majorité (relative ou absolue)
