@@ -38,4 +38,4 @@ Planning Poker est une application conçue pour faciliter la planification colla
 ## Installation et utilisation
 1. Clonez le dépôt :
    ```bash
-   git clone <url-du-repo>
+   git clone https://github.com/Modou010/conception-agile.git
