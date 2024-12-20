@@ -1,35 +1,34 @@
-/**
- * Initialiser les événements pour la gestion des joueurs.
- * @constructeur
- * @écouteur DOMContentLoaded - Initialisation après le chargement du DOM
- */
+// script.js corrigé avec les fonctions exportées pour les tests
+
 document.addEventListener("DOMContentLoaded", () => {
   const playersInput = document.getElementById("players");
   const playerNamesContainer = document.getElementById("player-names");
   const startGameButton = document.getElementById("start-game");
+  const menuSection = document.getElementById("menu");
 
-  /**
-   * Gérer l'entrée du nombre de joueurs.
-   * @constructeur
-   * @param {input} playersInput - Champ pour le nombre de joueurs
-   * @return Ajoute les champs pour les noms des joueurs
-   */
+  startGameButton.disabled = true;
+
+  const errorMessage = document.createElement("p");
+  errorMessage.style.color = "red";
+  errorMessage.style.fontWeight = "bold";
+  errorMessage.style.display = "none";
+  menuSection.appendChild(errorMessage);
+
   playersInput.addEventListener("input", () => {
     const numberOfPlayers = parseInt(playersInput.value, 10);
-    playerNamesContainer.innerHTML = ""; // Réinitialiser le conteneur
+    playerNamesContainer.innerHTML = "";
+    errorMessage.style.display = "none";
 
-    // Vérification du nombre minimal de joueurs
-    if (numberOfPlayers < 2) {
-      const errorMessage = document.createElement("p");
-      errorMessage.textContent = "La partie doit avoir au moins deux joueurs.";
-      errorMessage.style.color = "red";
-      errorMessage.style.fontWeight = "bold";
-
-      playerNamesContainer.appendChild(errorMessage);
+    const validationError = validatePlayersInput(numberOfPlayers);
+    if (validationError) {
+      errorMessage.textContent = validationError;
+      errorMessage.style.display = "block";
+      startGameButton.disabled = true;
       return;
     }
 
-    // Générer les champs de saisie pour chaque joueur
+    startGameButton.disabled = false;
+
     for (let i = 1; i <= numberOfPlayers; i++) {
       const playerLabel = document.createElement("label");
       playerLabel.textContent = `Nom du joueur ${i} :`;
@@ -41,52 +40,43 @@ document.addEventListener("DOMContentLoaded", () => {
       playerInput.name = `player-${i}`;
       playerInput.required = true;
 
-      // Ajouter les éléments au conteneur
       playerNamesContainer.appendChild(playerLabel);
       playerNamesContainer.appendChild(playerInput);
     }
   });
 
-  /**
-   * Valider les noms et générer un fichier JSON.
-   * @constructeur
-   * @param {click} startGameButton - Bouton pour démarrer le jeu
-   * @return Télécharge un fichier JSON avec les noms des joueurs
-   */
-  startGameButton.addEventListener("click", (event) => {
+  startGameButton.addEventListener("click", () => {
     const playerInputs = playerNamesContainer.querySelectorAll("input");
     const playerNames = [];
 
-    // Récupérer les noms des joueurs
     playerInputs.forEach((input) => {
       if (input.value.trim() !== "") {
         playerNames.push(input.value.trim());
       }
     });
 
-    // Vérifier si tous les noms sont renseignés
     if (playerNames.length < parseInt(playersInput.value, 10)) {
       alert("Veuillez remplir tous les noms des joueurs.");
-      event.preventDefault();
       return;
     }
 
-    // Générer un fichier JSON avec les noms des joueurs
-    const playersData = JSON.stringify({ players: playerNames }, null, 2);
+    const selectedRule = document.getElementById("rule").value;
 
-    // Créer un fichier JSON téléchargeable
-    const blob = new Blob([playersData], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+    localStorage.setItem("players", JSON.stringify(playerNames));
+    localStorage.setItem("rule", selectedRule);
 
-    // Créer un lien de téléchargement
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "players.json"; // Nom du fichier
-    document.body.appendChild(a);
-    a.click();
-
-    // Nettoyer l'URL temporaire et le lien
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    window.location.href = "page2.html";
   });
 });
+
+function validatePlayersInput(numberOfPlayers) {
+  if (isNaN(numberOfPlayers) || numberOfPlayers < 2) {
+    return "⚠️ La partie doit avoir au moins 2 joueurs.";
+  }
+  if (numberOfPlayers > 10) {
+    return "⚠️ La partie ne peut pas avoir plus de 10 joueurs.";
+  }
+  return null;
+}
+
+module.exports = { validatePlayersInput };

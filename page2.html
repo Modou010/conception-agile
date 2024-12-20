@@ -3,25 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page de Jeu</title>
+    <title>Planning Poker</title>
     <link rel="stylesheet" href="style_jeu.css" />
   </head>
   <body>
-    <header></header>
-    <main>
-      <section id="game-area">
-        <div id="player-info"></div>
-        <h3 id="current-player">C'est le tour de ...</h3>
-        <h3>Choisissez une carte :</h3>
-        <div id="cards"></div>
+    <header>
+      <h1>Planning Poker</h1>
+    </header>
 
-        <div id="selected-card">
-          <h4>Carte sélectionnée :</h4>
-          <p id="card-number">Aucune carte sélectionnée</p>
-        </div>
-      </section>
+    <main>
+      <h3>Joueurs inscrits :</h3>
+      <ul id="players"></ul>
+
+      <div id="task-container">
+        <h3 id="task">Tâche à voter :</h3>
+      </div>
+
+      <!-- Le tour du joueur -->
+      <h3 id="current-player">C'est le tour de ...</h3>
+      <h3>Choisissez une carte :</h3>
+      <div id="cards"></div>
+
+      <div id="selected-card">
+        <h4>Carte sélectionnée :</h4>
+        <p id="card-number">Aucune carte sélectionnée</p>
+      </div>
+
+      <!-- Bouton pour recommencer -->
+      <button id="restart-button">Recommencer</button>
     </main>
 
     <script src="script2.js"></script>
+    <script>
+      // Fonction pour gérer le clic sur le bouton "Recommencer"
+      const restartButton = document.getElementById("restart-button");
+      if (restartButton) {
+        restartButton.addEventListener("click", () => {
+          // Nettoyer le localStorage
+          localStorage.removeItem("players");
+          localStorage.removeItem("rule");
+
+          // Rediriger vers la page d'accueil
+          window.location.href = "page1.html";
+        });
+      } else {
+        console.error(
+          "Le bouton Recommencer (restart-button) n'a pas été trouvé."
+        );
+      }
+    </script>
   </body>
 </html>
