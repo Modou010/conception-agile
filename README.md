@@ -1,4 +1,4 @@
-# conception-agile.
+# conception-agile
 # Planning Poker
 
 ## Description
